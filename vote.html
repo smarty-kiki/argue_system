@@ -67,14 +67,26 @@
         return dft;
     }
 
+    var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + getQueryVariable('rand'));
+
     $('.left').on('click', function () {
         $(this).css('width', '90%');
         $('.right').css('width', '10%');
+
+        ws.send(JSON.stringify({
+            guid: guid,
+            select: 'left',
+        }));
     });
 
     $('.right').on('click', function () {
         $(this).css('width', '90%');
         $('.left').css('width', '10%');
+
+        ws.send(JSON.stringify({
+            guid: guid,
+            select: 'right',
+        }));
     });
 
     });

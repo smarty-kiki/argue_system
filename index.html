@@ -98,6 +98,15 @@
         color : "#aaaaaa",
 	});
 
+    var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + rand);
+
+    ws.onmessage = function (event) {
+        if (typeof event.data === String) {
+            var vote_result = JSON.parse(event.data);
+            setScore(vote_result.left, vote_result.right);
+        }
+    };
+
     });
 
 </script>

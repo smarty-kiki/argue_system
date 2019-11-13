@@ -1,7 +1,7 @@
 (function () {
 
-    var board = null;
-    var voters = [];
+    var boards = {};
+    var voters = {};
     var vote_infos = {};
 
     var port = 4321;
@@ -21,14 +21,14 @@
         httpServer: httpServer
     });
 
-    var sumVoteResult = function () {
+    var sumVoteResult = function (rand) {
         var vote_result = {
             left: 0,
             right: 0
         };
 
-      　for (var guid in vote_infos) {
-            vote_result[vote_infos[guid]] += 1;
+      　for (var guid in vote_infos[rand]) {
+            vote_result[vote_infos[rand][guid]] += 1;
         }
 
         return vote_result;
@@ -36,12 +36,15 @@
 
     wsServer.on('request', function (request) {
         var conn = request.accept(null, request.origin); 
-        var guid;
+        var guid, rand = request.resource;
         log(request.key + ' connected...');
+
+        voters[rand] === undefined && voters[rand] = {};
+        vote_infos[rand] === undefined && vote_infos[rand] = {};
 
         var sendJsonToBoard = function (json) {
             var msg = JSON.stringify(json);
-            board && board.sendUTF(msg);
+            boards[rand] && boards[rand].sendUTF(msg);
         };
 
         var receive = function (e) {
@@ -54,20 +57,19 @@
             }
 
             var json = receive(m);
-            if (json.data.voter) {
-                voters[guid] = conn;
+            if (json.data.guid) {
+                guid = json.data.guid;
+                voters[rand][guid] = conn;
+                vote_infos[rand][guid] = json.data.select;
             } else {
-                board = conn;
+                boards[rand] = conn;
             }
 
-            guid = json.data.guid;
-            vote_infos[guid] = json.data.select;
-          
-            sendJsonToBoard(sumVoteResult());
+            sendJsonToBoard(sumVoteResult(rand));
         });
 
         conn.on('close', function (conn) {
-            delete voters[guid];
+            delete voters[rand][guid];
             log(request.key + ' closed...');
         });
     });
