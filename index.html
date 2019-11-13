@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建直播板</title>
+    <style>
+     table {
+         font-family: verdana,arial,sans-serif;
+         font-size:11px;
+         color:#333333;
+         border-width: 0px;
+         border-color: #666666;
+         border-collapse: collapse;
+         width: 100%;
+     }
+     table th {
+         border-width: 1px;
+         padding: 8px;
+         border-style: solid;
+         border-color: #666666;
+         background-color: #dedede;
+         text-align: center;
+     }
+     table td {
+         border-width: 0px;
+         padding: 8px;
+         border-style: solid;
+         border-color: #666666;
+         background-color: #ffffff;
+         text-align: center;
+     }
+    </style>
+</head>
+<body>
+    <form action="/board.html" method="GET">
+    <table>
+        <tr>
+            <td>问题</td>
+            <td><input type="text" name="question"></td>
+        </tr>
+        <tr>
+            <td>正方</td>
+            <td><input type="text" name="left"></td>
+        </tr>
+        <tr>
+            <td>反方</td>
+            <td><input type="text" name="right"></td>
+        </tr>
+    </table>
+        <input type="submit">
+    </form>
+</body>
+</html>
