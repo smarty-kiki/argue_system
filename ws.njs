@@ -39,8 +39,13 @@
         var guid, rand = request.resource;
         log(request.key + ' connected...');
 
-        (voters[rand] === undefined) && voters[rand] = {};
-        (vote_infos[rand] === undefined) && vote_infos[rand] = {};
+        if (voters[rand] === undefined) {
+            voters[rand] = {};
+        }
+
+        if (vote_infos[rand] === undefined) {
+            vote_infos[rand] = {};
+        }
 
         var sendJsonToBoard = function (json) {
             var msg = JSON.stringify(json);
