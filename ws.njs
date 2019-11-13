@@ -6,8 +6,7 @@
 
     var port = 4321;
     var webSocketServer = require('websocket').server;
-    var http = require('http');
-
+    var http = require('http'); 
     var log = function (str) {
         console.log(new Date() + " " + str);
     };
@@ -49,11 +48,16 @@
 
         var sendJsonToBoard = function (json) {
             var msg = JSON.stringify(json);
-            boards[rand] && boards[rand].sendUTF(msg);
+ 	    if (boards[rand]) {
+                boards[rand].sendUTF(msg);
+   		log('board ' + rand + ' result sync: ' + msg);
+	    }
         };
 
         var receive = function (e) {
-            return JSON.parse(e.utf8Data);
+            var tmp = JSON.parse(e.utf8Data);
+ 	    log('receive board ' + rand + ' guid ' + tmp.guid + ' data: ' + e.utf8Data);
+            return tmp;
         };
 
         conn.on('message', function (m) {
@@ -62,12 +66,13 @@
             }
 
             var json = receive(m);
-            if (json.data.guid) {
-                guid = json.data.guid;
+            if (json.guid) {
+                guid = json.guid;
                 voters[rand][guid] = conn;
-                vote_infos[rand][guid] = json.data.select;
+                vote_infos[rand][guid] = json.select;
             } else {
                 boards[rand] = conn;
+		log('start board: ' + rand);
             }
 
             sendJsonToBoard(sumVoteResult(rand));

@@ -90,6 +90,7 @@
 
     var rand = Math.round(Math.random() * 1000);
     var url = window.location.origin + '/vote.html?rand=' + rand;
+    console.log(url);
 
     $('.qrcode').qrcode({
         text: url,
@@ -101,10 +102,14 @@
     var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + rand);
 
     ws.onmessage = function (event) {
-        if (typeof event.data === String) {
+        if (typeof event.data === 'string') {
             var vote_result = JSON.parse(event.data);
             setScore(vote_result.left, vote_result.right);
         }
+    };
+
+    ws.onopen = function () {
+        ws.send('{}');
     };
 
     });
