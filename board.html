@@ -32,9 +32,9 @@
      }
 
     </style>
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://jeromeetienne.github.io/jquery-qrcode/src/qrcode.js"></script>
-    <script src="http://jeromeetienne.github.io/jquery-qrcode/src/jquery.qrcode.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/qrcode.js"></script>
+    <script src="/js/jquery.qrcode.js"></script>
 </head>
 <body>
     <table style="margin-bottom: 20px;">
@@ -43,9 +43,12 @@
                 <td colspan="3" class="question" style="font-size: 75px;"></td>
             </tr>
             <tr>
-                <td class="left" style="width: 50%; font-size: 30px;"></td>
+                <td class="left" style="width: 50%; font-size: 100px;"></td>
                 <td class="qrcode"></td>
-                <td class="right" style="width: 50%; font-size: 30px;"></td>
+                <td class="right" style="width: 50%; font-size: 100px;"></td>
+            </tr>
+            <tr>
+                <td colspan="3" style="font-size: 55px; color: gray;" >实时改票，更刺激哦!!!!</td>
             </tr>
         </tbody>
     </table>
@@ -84,9 +87,9 @@
         $('.right-score').text(right);
     }
 
-    $('.question').text(getQueryVariable('question', 'URL 参数 question 会显示在这里'));
-    $('.left').text(getQueryVariable('left', '参数 left 会显示在这里'));
-    $('.right').text(getQueryVariable('right', '参数 right 会显示在这里'));
+    $('.question').text(decodeURI(getQueryVariable('question', 'URL 参数 question 会显示在这里')));
+    $('.left').text(decodeURI(getQueryVariable('left', '参数 left 会显示在这里')));
+    $('.right').text(decodeURI(getQueryVariable('right', '参数 right 会显示在这里')));
 
     var rand = Math.round(Math.random() * 1000);
     var url = window.location.origin + '/vote.html?rand=' + rand;
@@ -94,9 +97,9 @@
 
     $('.qrcode').qrcode({
         text: url,
-        width: 100, //宽度
-        height:100, //高度
-        color : "#aaaaaa",
+        width: 500, //宽度
+        height:500, //高度
+        color : "#aaaaaa"
 	});
 
     var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + rand);
@@ -105,11 +108,14 @@
         if (typeof event.data === 'string') {
             var vote_result = JSON.parse(event.data);
             setScore(vote_result.left, vote_result.right);
+ 	    console.log(vote_result.vote_infos);
         }
     };
 
     ws.onopen = function () {
-        ws.send('{}');
+        ws.send(JSON.stringify({
+ 	    total: getQueryVariable('total', 37),
+        }));
     };
 
     });

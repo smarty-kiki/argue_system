@@ -32,12 +32,15 @@
      }
 
     </style>
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
 </head>
 <body>
     
     <table>
         <tbody>
+            <tr>
+                <td colspan="2"><input type=“text” style="width: 80%;" class="name" placeholder="写个名字先？"></td>
+            </tr>
             <tr style="height: 500px;">
                 <td class="left" style="background-color: red; font-size: 100px; color: white;"></td>
                 <td class="right" style="background-color: blue; font-size: 100px; color: white;"></td>
@@ -49,12 +52,12 @@
 
     $(function () {
 
-    var guid = localStorage.vote_guid;
+    //var guid = localStorage.vote_guid;
 
-    if (! guid) {
+    //if (! guid) {
 
-        localStorage.vote_guid = guid = Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36);
-    }
+    //    localStorage.vote_guid = guid = Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36);
+    //}
 
     function getQueryVariable(variable, dft = 'default')
     {
@@ -67,26 +70,65 @@
         return dft;
     }
 
-    var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + getQueryVariable('rand'));
 
     $('.left').on('click', function () {
-        $(this).css('width', '90%');
-        $('.right').css('width', '10%');
+ 	var $this = $(this);
+ 	var guid = $('.name').val();
 
-        ws.send(JSON.stringify({
-            guid: guid,
-            select: 'left',
-        }));
+ 	if (! guid) {
+ 	    alert('请先输入您的名字');
+ 	    return;
+	}
+
+        var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + getQueryVariable('rand'));
+        ws.onmessage = function (event) {
+            if (typeof event.data === 'string') {
+                var vote_result = JSON.parse(event.data);
+                if (vote_result.res) {
+                    $this.css('width', '90%');
+                    $('.right').css('width', '10%');
+		} else {
+ 		    alert(vote_result.msg);
+		}
+                ws.close();
+            }
+        };
+        ws.onopen = function (event) {
+            ws.send(JSON.stringify({
+                guid: guid,
+                select: 'left',
+            }));
+        };
     });
 
     $('.right').on('click', function () {
-        $(this).css('width', '90%');
-        $('.left').css('width', '10%');
+ 	var $this = $(this);
+ 	var guid = $('.name').val();
 
-        ws.send(JSON.stringify({
-            guid: guid,
-            select: 'right',
-        }));
+ 	if (! guid) {
+ 	    alert('请先输入您的名字');
+ 	    return;
+	}
+
+        var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + getQueryVariable('rand'));
+        ws.onmessage = function (event) {
+            if (typeof event.data === 'string') {
+                var vote_result = JSON.parse(event.data);
+                if (vote_result.res) {
+		    $this.css('width', '90%');
+		    $('.left').css('width', '10%');
+		} else {
+ 		    alert(vote_result.msg);
+		}
+                ws.close();
+            }
+        };
+        ws.onopen = function (event) {
+            ws.send(JSON.stringify({
+                guid: guid,
+                select: 'right',
+            }));
+        };
     });
 
     });
