@@ -58,7 +58,7 @@
     </table>
     <table>
         <tbody>
-            <tr style="height: 500px;">
+            <tr style="height: 300px;">
                 <td class="left-score" style="background-color: red; font-size: 100px; color: white;"></td>
                 <td class="right-score" style="background-color: blue; font-size: 100px; color: white;"></td>
             </tr>
@@ -85,7 +85,9 @@
         var total = left + right;
 
         $('.left-score').css('width', Math.round(left / total * 100) + '%');
+        $('.left-score').css('font-size', Math.round(left / total * 100 + 100) + 'px');
         $('.right-score').css('width', Math.round(right / total * 100) + '%');
+        $('.right-score').css('font-size', Math.round(right / total * 100 + 100) + 'px');
 
         $('.left-score').text(left);
         $('.right-score').text(right);
