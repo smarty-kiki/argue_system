@@ -215,6 +215,12 @@
 
                 } else if (key == 39) {
 
+                    $('.input').hide();
+                    timer_status = 'right-timer';
+                    timers['right-timer'] = timer('rtimer', $('.seconds').val());
+                    timers['right-timer'].start();
+                    $('.right-timer').show();
+
                 } else if (key == 38) {
 
                 }
@@ -222,9 +228,16 @@
                 if (key == 27) {
                     if (timer_status == 'left-timer') {
                         timers['left-timer'].pause();
+                        $('.left-timer').hide();
+                        $('.input').show();
+                        timer_status = 'input';
                     }
-                    $('.input').show();
-                    timer_status = 'input';
+                    if (timer_status == 'right-timer') {
+                        timers['right-timer'].pause();
+                        $('.right-timer').hide();
+                        $('.input').show();
+                        timer_status = 'input';
+                    }
                 }
                 //if (key == 40) alert("按了↓键！");
             }
