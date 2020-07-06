@@ -35,6 +35,7 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/qrcode.js"></script>
     <script src="/js/jquery.qrcode.js"></script>
+    <link type="text/css" href="/css/csshake.min.css">
 </head>
 <body>
     <table style="margin-bottom: 20px;">
@@ -91,6 +92,8 @@
 
         $('.left-score').text(left);
         $('.right-score').text(right);
+
+        // shake shake-hard
     }
 
     $('.question').text(decodeURI(getQueryVariable('question', 'URL 参数 question 会显示在这里')));
