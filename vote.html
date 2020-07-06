@@ -83,7 +83,7 @@
  	    return;
 	}
 
-        var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + getQueryVariable('rand'));
+        var ws = new WebSocket('ws://argue.yao-yang.cn:50000/' + getQueryVariable('rand'));
         ws.onmessage = function (event) {
             if (typeof event.data === 'string') {
                 var vote_result = JSON.parse(event.data);
@@ -113,7 +113,7 @@
  	    return;
 	}
 
-        var ws = new WebSocket('ws://argue.yao-yang.cn:4321/' + getQueryVariable('rand'));
+        var ws = new WebSocket('ws://argue.yao-yang.cn:50000/' + getQueryVariable('rand'));
         ws.onmessage = function (event) {
             if (typeof event.data === 'string') {
                 var vote_result = JSON.parse(event.data);
