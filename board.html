@@ -75,12 +75,12 @@
     </table>
     <table class="left-timer">
         <tr>
-            <td id="ltimer" style="font-size: 100px; color: red;"></td>
+            <td id="ltimer" style="font-size: 200px; color: red;"></td>
         </tr>
     </table>
     <table class="right-timer">
         <tr>
-            <td id="rtimer" style="font-size: 100px; color: blue;"></td>
+            <td id="rtimer" style="font-size: 200px; color: blue;"></td>
         </tr>
     </table>
     <table class="pk-timer">
@@ -88,6 +88,8 @@
             <td id="pkltimer" style="font-size: 100px; color: red;"></td>
             <td id="pkrtimer" style="font-size: 100px; color: blue;"></td>
         </tr>
+    </table>
+    <table class="result">
     </table>
 </body>
 <script>
@@ -255,6 +257,13 @@
                         timer_status = 'input';
                     }
                 } else if (key == 40) {
+
+                    $('.result').append('<tr>'
+                        + '<td style="width: 20%; font-size: 30px;">01:07:30</td>'
+                        + '<td style="font-size: 30px; color: red;">红方发言完毕</td>'
+                        + '<td style="font-size: 30px; color: red;">红方</td>'
+                        + '<td style="font-size: 30px; color: blue;">红方</td>'
+                        + '</tr>');
 
                 } else if (timer_status == 'pk-timer') {
 
