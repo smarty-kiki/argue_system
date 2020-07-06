@@ -220,7 +220,11 @@
                 }
             } else {
                 if (key == 27) {
+                    if (timer_status == 'left-timer') {
+                        timers['left-timer'].pause();
+                    }
                     $('.input').show();
+                    timer_status = 'input';
                 }
                 //if (key == 40) alert("按了↓键！");
             }
