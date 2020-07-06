@@ -223,8 +223,14 @@
 
                 } else if (key == 38) {
 
+                    $('.input').hide();
+                    timer_status = 'pk-timer';
+                    timers['pk-left-timer'] = timer('pkltimer', $('.seconds').val());
+                    timers['pk-right-timer'] = timer('pkltimer', $('.seconds').val());
+                    $('.pk-timer').show();
                 }
             } else {
+
                 if (key == 27) {
                     if (timer_status == 'left-timer') {
                         timers['left-timer'].pause();
@@ -237,6 +243,27 @@
                         $('.right-timer').hide();
                         $('.input').show();
                         timer_status = 'input';
+                    }
+                    if (timer_status == 'pk-timer') {
+                        timers['pk-left-timer'].pause();
+                        timers['pk-right-timer'].pause();
+                        $('.pk-timer').hide();
+                        $('.input').show();
+                        timer_status = 'input';
+                    }
+                } else if (key == 40) {
+
+                } else if (timer_status == 'pk-timer') {
+
+                    if (key == 37) {
+
+                        timers['pk-right-timer'].pause();
+                        timers['pk-left-timer'].start();
+
+                    } else if (key == 39) {
+
+                        timers['pk-left-timer'].pause();
+                        timers['pk-right-timer'].start();
                     }
                 }
                 //if (key == 40) alert("按了↓键！");
