@@ -92,6 +92,8 @@
 </body>
 <script>
 
+    var timers = [];
+
     $(function () {
 
         function getQueryVariable(variable, dft = 'default')
@@ -199,7 +201,6 @@
         }
 
         var timer_status = 'input';
-        var timers = [];
 
         function showkey() {
 
