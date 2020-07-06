@@ -261,12 +261,16 @@
                     if (key == 37) {
 
                         timers['pk-right-timer'].pause();
+                        $('#pkrtimer').css('font-size', '100px');
                         timers['pk-left-timer'].start();
+                        $('#pkltimer').css('font-size', '200px');
 
                     } else if (key == 39) {
 
                         timers['pk-left-timer'].pause();
+                        $('#pkltimer').css('font-size', '100px');
                         timers['pk-right-timer'].start();
+                        $('#pkrtimer').css('font-size', '200px');
                     }
                 }
                 //if (key == 40) alert("按了↓键！");
