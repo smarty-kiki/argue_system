@@ -166,6 +166,8 @@
                     s + '″';
             }
 
+            res.display();
+
             res.reduce = function () {
                 seconds -= 1;
                 if (seconds < 0) {
@@ -175,7 +177,6 @@
             }
 
             res.start = function () {
-                res.display();
                 if (t === null) {
                     t = setInterval(function () {
                         res.reduce();
