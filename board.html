@@ -106,7 +106,7 @@
         color : "#aaaaaa"
 	});
 
-    var ws = new WebSocket('ws://argue.yao-yang.cn:50000/' + rand);
+    var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
 
     ws.onmessage = function (event) {
         if (typeof event.data === 'string') {
