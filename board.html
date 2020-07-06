@@ -73,64 +73,122 @@
 
     $(function () {
 
-    function getQueryVariable(variable, dft = 'default')
-    {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-            var pair = vars[i].split("=");
-            if(pair[0] == variable){return pair[1];}
+        function getQueryVariable(variable, dft = 'default')
+        {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+            }
+            return dft;
         }
-        return dft;
-    }
 
-    function setScore(left, right)
-    {
-        var total = left + right;
+        function setScore(left, right)
+        {
+            var total = left + right;
 
-        $('.left-score').css('width', Math.round(left / total * 100) + '%');
-        $('.left-score').css('font-size', Math.round(left / total * 100 + 100) + 'px');
-        $('.right-score').css('width', Math.round(right / total * 100) + '%');
-        $('.right-score').css('font-size', Math.round(right / total * 100 + 100) + 'px');
+            $('.left-score').css('width', Math.round(left / total * 100) + '%');
+            $('.left-score').css('font-size', Math.round(left / total * 100 + 100) + 'px');
+            $('.right-score').css('width', Math.round(right / total * 100) + '%');
+            $('.right-score').css('font-size', Math.round(right / total * 100 + 100) + 'px');
 
-        $('.left-score').text(left);
-        $('.right-score').text(right);
+            $('.left-score').text(left);
+            $('.right-score').text(right);
 
-        // shake shake-hard
-    }
-
-    $('.question').text(decodeURI(getQueryVariable('question', 'URL 参数 question 会显示在这里')));
-    $('.left').text(decodeURI(getQueryVariable('left', '参数 left 会显示在这里')));
-    $('.right').text(decodeURI(getQueryVariable('right', '参数 right 会显示在这里')));
-
-    var rand = Math.round(Math.random() * 1000);
-    var url = window.location.origin + '/vote.html?rand=' + rand;
-    console.log(url);
-
-    $('.qrcode').qrcode({
-        text: url,
-        width: 500, //宽度
-        height:500, //高度
-        color : "#aaaaaa"
-	});
-
-    var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
-
-    ws.onmessage = function (event) {
-        if (typeof event.data === 'string') {
-            var vote_result = JSON.parse(event.data);
-            setScore(vote_result.left, vote_result.right);
- 	    console.log(vote_result.vote_infos);
+            // shake shake-hard
         }
-    };
 
-    ws.onopen = function () {
-        ws.send(JSON.stringify({
- 	    total: getQueryVariable('total', 37),
-        }));
-    };
+        $('.question').text(decodeURI(getQueryVariable('question', 'URL 参数 question 会显示在这里')));
+        $('.left').text(decodeURI(getQueryVariable('left', '参数 left 会显示在这里')));
+        $('.right').text(decodeURI(getQueryVariable('right', '参数 right 会显示在这里')));
+
+        var rand = Math.round(Math.random() * 1000);
+        var url = window.location.origin + '/vote.html?rand=' + rand;
+        console.log(url);
+
+        $('.qrcode').qrcode({
+            text: url,
+            width: 500, //宽度
+            height:500, //高度
+            color : "#aaaaaa"
+        });
+
+        var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
+
+        ws.onmessage = function (event) {
+            if (typeof event.data === 'string') {
+                var vote_result = JSON.parse(event.data);
+                setScore(vote_result.left, vote_result.right);
+                console.log(vote_result.vote_infos);
+            }
+        };
+
+        ws.onopen = function () {
+            ws.send(JSON.stringify({
+                total: getQueryVariable('total', 37),
+            }));
+        };
+
+        var timer = function (id, seconds) {
+
+            var dom = document.getElementById(id);
+            var res = {};
+            var t = null;
+
+            res.display = function () {
+                var m = Math.floor(seconds / 60);
+                var s = seconds % 60;
+                dom.innerHTML =
+                    (m > 0) ?
+                    m + '′' + s + '″':
+                    s + '″';
+            }
+
+            res.reduce = function () {
+                seconds -= 1;
+                if (seconds < 0) {
+                    seconds = 0;
+                }
+                res.display();
+            }
+
+            res.start = function () {
+                res.display();
+                if (t === null) {
+                    t = setInterval(function () {
+                        res.reduce();
+                        if (res.is_finished()) {
+                            clearInterval(t);
+                        }
+                    }, 1000);
+                }
+            }
+
+            res.pause = function () {
+                clearInterval(t);
+            }
+
+            res.is_finished = function () {
+                return seconds === 0;
+            }
+
+            return res;
+        }
 
     });
+
+
+function showkey() {
+    var key = event.keyCode;
+    if (key == 37) alert("按了←键！");
+    if (key == 38) alert("按了↑键！");
+    if (key == 39) alert("按了→键！");
+    if (key == 40) alert("按了↓键！");
+    console.log(key);
+}
+
+document.onkeydown = showkey;
 
 </script>
 </html>
