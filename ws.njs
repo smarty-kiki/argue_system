@@ -14,7 +14,7 @@
     var vote_infos = {};
     var board_totals = {};
 
-    var port = 4321;
+    var port = 50000;
     var webSocketServer = require('websocket').server;
     var http = require('http'); 
     var log = function (str) {
