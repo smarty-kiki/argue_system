@@ -92,8 +92,6 @@
 </body>
 <script>
 
-    var timers = {};
-
     $(function () {
 
         function getQueryVariable(variable, dft = 'default')
@@ -191,6 +189,7 @@
 
             res.pause = function () {
                 clearInterval(t);
+                t = null;
             }
 
             res.is_finished = function () {
@@ -201,6 +200,8 @@
         }
 
         var timer_status = 'input';
+
+        var timers = {};
 
         function showkey() {
 
