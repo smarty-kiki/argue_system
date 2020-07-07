@@ -108,9 +108,9 @@
                 board_totals[rand] = json.total;
                 board_request_keys[request.key] = true;
                 log('start board: ' + rand + ' option total: ' + json.total);
-                if (json.vote_result) {
-                  vote_infos[rand] = json.vote_result;
-                  log('retry board: ' + rand + ' init data: ' + JSON.stringify(json.vote_result));
+                if (json.vote_infos) {
+                  vote_infos[rand] = json.vote_infos;
+                  log('retry board: ' + rand + ' init data: ' + JSON.stringify(json.vote_infos));
                 }
             }
 

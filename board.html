@@ -241,7 +241,7 @@
             color : "#aaaaaa"
         });
 
-        var last_vote_result = null;
+        var last_vote_infos = null;
 
         function connectServer() {
 
@@ -255,7 +255,7 @@
                 if (typeof event.data === 'string') {
                     var vote_result = JSON.parse(event.data);
                     setScore(vote_result.left, vote_result.right);
-                    last_vote_result = vote_result;
+                    last_vote_infos = vote_result.vote_infos;
                     console.log(vote_result.vote_infos);
                 }
             };
@@ -264,8 +264,8 @@
                 var tmp = {
                     total: getQueryVariable('total', 37),
                 };
-                if (last_vote_result) {
-                    tmp.vote_result = last_vote_result;
+                if (last_vote_infos) {
+                    tmp.vote_infos = last_vote_infos;
                 }
                 ws.send(JSON.stringify(tmp));
             };
