@@ -177,7 +177,6 @@
     </table>
 </body>
 <script>
-    var ws = null;
 
     $(function () {
 
@@ -242,24 +241,37 @@
             color : "#aaaaaa"
         });
 
-        ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
-
         var last_vote_result = null;
 
-        ws.onmessage = function (event) {
-            if (typeof event.data === 'string') {
-                var vote_result = JSON.parse(event.data);
-                setScore(vote_result.left, vote_result.right);
-                last_vote_result = vote_result;
-                console.log(vote_result.vote_infos);
-            }
-        };
+        function connectServer() {
 
-        ws.onopen = function () {
-            ws.send(JSON.stringify({
-                total: getQueryVariable('total', 37),
-            }));
-        };
+            var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
+
+            ws.onclose = function () {
+                connectServer();
+            };
+
+            ws.onmessage = function (event) {
+                if (typeof event.data === 'string') {
+                    var vote_result = JSON.parse(event.data);
+                    setScore(vote_result.left, vote_result.right);
+                    last_vote_result = vote_result;
+                    console.log(vote_result.vote_infos);
+                }
+            };
+
+            ws.onopen = function () {
+                var tmp = {
+                    total: getQueryVariable('total', 37),
+                };
+                if (last_vote_result) {
+                    tmp.vote_result = last_vote_result;
+                }
+                ws.send(JSON.stringify(tmp));
+            };
+
+            return ws;
+        }
 
         var timer = function (id, seconds) {
 
