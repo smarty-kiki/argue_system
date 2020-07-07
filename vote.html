@@ -90,9 +90,9 @@
                 if (vote_result.res) {
                     $this.css('width', '90%');
                     $('.right').css('width', '10%');
-		} else {
- 		    alert(vote_result.msg);
-		}
+                } else {
+                    alert(vote_result.msg);
+                }
                 ws.close();
             }
         };
@@ -105,24 +105,24 @@
     });
 
     $('.right').on('click', function () {
- 	var $this = $(this);
- 	var guid = $('.name').val();
+        var $this = $(this);
+        var guid = $('.name').val();
 
- 	if (! guid) {
- 	    alert('请先输入您的名字');
- 	    return;
-	}
+        if (! guid) {
+            alert('请先输入您的名字');
+            return;
+        }
 
         var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + getQueryVariable('rand'));
         ws.onmessage = function (event) {
             if (typeof event.data === 'string') {
                 var vote_result = JSON.parse(event.data);
                 if (vote_result.res) {
-		    $this.css('width', '90%');
-		    $('.left').css('width', '10%');
-		} else {
- 		    alert(vote_result.msg);
-		}
+                    $this.css('width', '90%');
+                    $('.left').css('width', '10%');
+                } else {
+                    alert(vote_result.msg);
+                }
                 ws.close();
             }
         };
