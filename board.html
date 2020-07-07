@@ -177,7 +177,7 @@
     </table>
 </body>
 <script>
-    var test = null;
+    var ws = null;
 
     $(function () {
 
@@ -243,7 +243,6 @@
         });
 
         var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
-        test = ws;
 
         var last_vote_result = null;
 
