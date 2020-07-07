@@ -31,6 +31,90 @@
          text-align: center;
      }
 
+     .box{
+         -webkit-animation: rock 1s 0s ease-in-out infinite;
+         -moz-animation: rock 1s 0s ease-in-out infinite;
+         -ms-animation: rock 1s 0s ease-in-out infinite;
+         -o-animation: rock 1s 0s ease-in-out infinite;
+         animation: rock 1s 0s ease-in-out infinite;
+     }
+     @-webkit-keyframes rock {
+         0% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+         10% {
+             -webkit-transform: rotate(15deg);
+             transform: rotate(15deg)
+         }
+         20% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+         30% {
+             -webkit-transform: rotate(-15deg);
+             transform: rotate(-15deg)
+         }
+         35% {
+             -webkit-transform: rotate(15deg);
+             transform: rotate(15deg)
+         }
+         40% {
+             -webkit-transform: rotate(-15deg);
+             transform: rotate(-15deg)
+         }
+         45% {
+             -webkit-transform: rotate(15deg);
+             transform: rotate(15deg)
+         }
+         50% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+         100% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+     }
+     @keyframes rock {
+         0% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+         10% {
+             -webkit-transform: rotate(15deg);
+             transform: rotate(15deg)
+         }
+         20% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+         30% {
+             -webkit-transform: rotate(-15deg);
+             transform: rotate(-15deg)
+         }
+         35% {
+             -webkit-transform: rotate(15deg);
+             transform: rotate(15deg)
+         }
+         40% {
+             -webkit-transform: rotate(-15deg);
+             transform: rotate(-15deg)
+         }
+         45% {
+             -webkit-transform: rotate(15deg);
+             transform: rotate(15deg)
+         }
+         50% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+         100% {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg)
+         }
+     }
+
     </style>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/qrcode.js"></script>
@@ -39,7 +123,7 @@
 <body>
     <table style="margin-bottom: 20px;">
         <tr>
-            <td class="qrcode"></td>
+            <td class="box qrcode"></td>
         </tr>
         <tr>
             <td style="font-size: 55px; color: gray;" >
@@ -93,6 +177,7 @@
     </table>
 </body>
 <script>
+    var test = null;
 
     $(function () {
 
@@ -158,11 +243,15 @@
         });
 
         var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
+        test = ws;
+
+        var last_vote_result = null;
 
         ws.onmessage = function (event) {
             if (typeof event.data === 'string') {
                 var vote_result = JSON.parse(event.data);
                 setScore(vote_result.left, vote_result.right);
+                last_vote_result = vote_result;
                 console.log(vote_result.vote_infos);
             }
         };
