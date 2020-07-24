@@ -180,6 +180,10 @@
 
     $(function () {
 
+        var seconds30 = new Audio('seconds30.mp3');
+        var dong = new Audio('dong.wav');
+        var timeup = new Audio('timeup.mp3');
+
         function dateFormat(fmt, date) {
             let ret;
             const opt = {
@@ -298,6 +302,14 @@
                     seconds = 0;
                 }
                 res.display();
+
+                if (seconds == 30) {
+                    seconds30.play();
+                } else if (seconds <=5 & seconds > 0) {
+                    dong.play();
+                } else if (seconds == 0) {
+                    timeup.play();
+                }
             }
 
             res.start = function () {
