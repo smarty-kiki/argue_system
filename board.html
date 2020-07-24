@@ -303,9 +303,9 @@
                 }
                 res.display();
 
-                if (seconds == 30) {
+                if (seconds == 31) {
                     seconds30.play();
-                } else if (seconds <=5 & seconds > 0) {
+                } else if (seconds < 7 & seconds > 0 & seconds % 2 == 0) {
                     dong.play();
                 } else if (seconds == 0) {
                     timeup.play();
