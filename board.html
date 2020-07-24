@@ -154,7 +154,7 @@
     </table>
     <table class="input">
         <tr>
-            <td><input class="seconds"> 输入秒数，按 ← 红方计时，按 → 蓝方计时，按 ↑ 进入红蓝双方切换计时按左右方向切换，再次按 ↑ 暂停双方计时，所有计时方式按 ↓ 结束且记录分，按 ESC 取消计时</td>
+            <td><input class="seconds"> 输入秒数，按 ← 红方计时，按 → 蓝方计时，按 ↑ 进入红蓝双方切换计时按左右方向切换，所有计时方式在计时过程中按 ↓ 结束且记录分，按 ↑ 暂停双方计时，按 ESC 取消计时</td>
         </tr>
     </table>
     <table class="left-timer">
@@ -381,7 +381,7 @@
                 }
             } else {
 
-                if (key == 27) {
+                if (key == 27) { // esc
                     if (timer_status == 'left-timer') {
                         timers['left-timer'].pause();
                         $('.left-timer').hide();
@@ -401,7 +401,7 @@
                         $('.input').show();
                         timer_status = 'input';
                     }
-                } else if (key == 40) {
+                } else if (key == 40) { // down
 
                     if (timer_status == 'left-timer') {
                         timers['left-timer'].pause();
@@ -446,6 +446,20 @@
 
                         timer_status = 'input';
                     }
+                } else if (key == 38) { // down
+
+                    if (timer_status == 'left-timer') {
+                        timers['left-timer'].pause();
+                    }
+                    if (timer_status == 'right-timer') {
+                        timers['right-timer'].pause();
+                    }
+                    if (timer_status == 'pk-timer') {
+                        timers['pk-left-timer'].pause();
+                        $('#pkltimer').css('font-size', '100px');
+                        timers['pk-right-timer'].pause();
+                        $('#pkrtimer').css('font-size', '100px');
+                    }
 
                 } else if (timer_status == 'pk-timer') {
 
@@ -463,12 +477,6 @@
                         timers['pk-right-timer'].start();
                         $('#pkrtimer').css('font-size', '200px');
 
-                    } else if (key == 38) {
-
-                        timers['pk-left-timer'].pause();
-                        $('#pkltimer').css('font-size', '100px');
-                        timers['pk-right-timer'].pause();
-                        $('#pkrtimer').css('font-size', '100px');
                     }
                 }
             }
