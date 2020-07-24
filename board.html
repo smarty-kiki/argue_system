@@ -478,6 +478,14 @@
                         $('#pkrtimer').css('font-size', '200px');
 
                     }
+                } else if (timer_status == 'left-timer') {
+                    if (key == 37) {
+                        timers['left-timer'].start();
+                    }
+                } else if (timer_status == 'right-timer') {
+                    if (key == 39) {
+                        timers['right-timer'].start();
+                    }
                 }
             }
         }
