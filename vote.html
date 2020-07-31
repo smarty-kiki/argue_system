@@ -76,8 +76,8 @@
         var left_default = '投红方';
         var right_default = '投蓝方';
 
-        var left = left_default;
-        var right = right_default;
+        var left = decodeURI(getQueryVariable('left', left_default));
+        var right = decodeURI(getQueryVariable('right', right_default));
 
         $('.left').text(left);
         $('.right').text(right);
