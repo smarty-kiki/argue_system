@@ -30,59 +30,6 @@
          background-color: #ffffff;
          text-align: center;
      }
-
-     .scale{
-         -webkit-animation: scale 10s 0s ease-in-out infinite;
-         -moz-animation: scale 10s 0s ease-in-out infinite;
-         -ms-animation: scale 10s 0s ease-in-out infinite;
-         -o-animation: scale 10s 0s ease-in-out infinite;
-         animation: scale 10s 0s ease-in-out infinite;
-     }
-     @-webkit-keyframes scale {
-         0% {
-             -webkit-transform: scaleX(1);
-             transform: scaleX(1);
-         }
-         40% {
-             -webkit-transform: scaleX(1);
-             transform: scaleX(1);
-         }
-         50% {
-             -webkit-transform: scaleX(1.2);
-             transform: scaleX(1.2);
-         }
-         90% {
-             -webkit-transform: scaleX(1.2);
-             transform: scaleX(1.2);
-         }
-         100% {
-             -webkit-transform: scaleX(1);
-             transform: scaleX(1);
-         }
-     }
-     @keyframes scale {
-         0% {
-             -webkit-transform: scaleX(1);
-             transform: scaleX(1);
-         }
-         40% {
-             -webkit-transform: scaleX(1);
-             transform: scaleX(1);
-         }
-         50% {
-             -webkit-transform: scaleX(1.2);
-             transform: scaleX(1.2);
-         }
-         90% {
-             -webkit-transform: scaleX(1.2);
-             transform: scaleX(1.2);
-         }
-         100% {
-             -webkit-transform: scaleX(1);
-             transform: scaleX(1);
-         }
-     }
-
      .rotate{
          -webkit-animation: rotate 10s 0s ease-in-out infinite;
          -moz-animation: rotate 10s 0s ease-in-out infinite;
@@ -92,46 +39,46 @@
      }
      @-webkit-keyframes rotate {
          0% {
-             -webkit-transform: rotateY(0deg);
-             transform: rotateY(0deg);
+             -webkit-transform: rotateY(0deg) scaleX(1);
+             transform: rotateY(0deg) scaleX(1);
          }
          40% {
-             -webkit-transform: rotateY(0deg);
-             transform: rotateY(0deg);
+             -webkit-transform: rotateY(0deg) scaleX(1);
+             transform: rotateY(0deg) scaleX(1);
          }
          50% {
-             -webkit-transform: rotateY(14deg);
-             transform: rotateY(14deg);
+             -webkit-transform: rotateY(14deg) scaleX(1.2);
+             transform: rotateY(14deg) scaleX(1.2);
          }
          90% {
-             -webkit-transform: rotateY(14deg);
-             transform: rotateY(14deg);
+             -webkit-transform: rotateY(14deg) scaleX(1.2);
+             transform: rotateY(14deg) scaleX(1.2);
          }
          100% {
-             -webkit-transform: rotateY(0deg);
-             transform: rotateY(0deg);
+             -webkit-transform: rotateY(0deg) scaleX(1);
+             transform: rotateY(0deg) scaleX(1);
          }
      }
      @keyframes rotate {
          0% {
-             -webkit-transform: rotateY(0deg);
-             transform: rotateY(0deg);
+             -webkit-transform: rotateY(0deg) scaleX(1);
+             transform: rotateY(0deg) scaleX(1);
          }
          40% {
-             -webkit-transform: rotateY(0deg);
-             transform: rotateY(0deg);
+             -webkit-transform: rotateY(0deg) scaleX(1);
+             transform: rotateY(0deg) scaleX(1);
          }
          50% {
-             -webkit-transform: rotateY(14deg);
-             transform: rotateY(14deg);
+             -webkit-transform: rotateY(14deg) scaleX(1.2);
+             transform: rotateY(14deg) scaleX(1.2);
          }
          90% {
-             -webkit-transform: rotateY(14deg);
-             transform: rotateY(14deg);
+             -webkit-transform: rotateY(14deg) scaleX(1.2);
+             transform: rotateY(14deg) scaleX(1.2);
          }
          100% {
-             -webkit-transform: rotateY(0deg);
-             transform: rotateY(0deg);
+             -webkit-transform: rotateY(0deg) scaleX(1);
+             transform: rotateY(0deg) scaleX(1);
          }
      }
 
@@ -229,7 +176,7 @@
         <tr>
             <td class="box">
                 <div style="perspective: 6cm;">
-                    <div class="rotate scale">
+                    <div class="rotate">
                         <div class="qrcode">
                         </div>
                     </div>
