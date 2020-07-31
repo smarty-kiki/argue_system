@@ -31,6 +31,58 @@
          text-align: center;
      }
 
+     .scale{
+         -webkit-animation: scale 10s 0s ease-in-out infinite;
+         -moz-animation: scale 10s 0s ease-in-out infinite;
+         -ms-animation: scale 10s 0s ease-in-out infinite;
+         -o-animation: scale 10s 0s ease-in-out infinite;
+         animation: scale 10s 0s ease-in-out infinite;
+     }
+     @-webkit-keyframes scale {
+         0% {
+             -webkit-transform: scaleX(1);
+             transform: scaleX(1);
+         }
+         40% {
+             -webkit-transform: scaleX(1);
+             transform: scaleX(1);
+         }
+         50% {
+             -webkit-transform: scaleX(1.2);
+             transform: scaleX(1.2);
+         }
+         90% {
+             -webkit-transform: scaleX(1.2);
+             transform: scaleX(1.2);
+         }
+         100% {
+             -webkit-transform: scaleX(1);
+             transform: scaleX(1);
+         }
+     }
+     @keyframes scale {
+         0% {
+             -webkit-transform: scaleX(1);
+             transform: scaleX(1);
+         }
+         40% {
+             -webkit-transform: scaleX(1);
+             transform: scaleX(1);
+         }
+         50% {
+             -webkit-transform: scaleX(1.2);
+             transform: scaleX(1.2);
+         }
+         90% {
+             -webkit-transform: scaleX(1.2);
+             transform: scaleX(1.2);
+         }
+         100% {
+             -webkit-transform: scaleX(1);
+             transform: scaleX(1);
+         }
+     }
+
      .rotate{
          -webkit-animation: rotate 10s 0s ease-in-out infinite;
          -moz-animation: rotate 10s 0s ease-in-out infinite;
@@ -173,9 +225,16 @@
     <script src="/js/jquery.qrcode.js"></script>
 </head>
 <body>
-    <table style="margin-top: 100px; margin-bottom: 20px;perspective: 6cm;">
-        <tr class="rotate">
-            <td class="box qrcode"></td>
+    <table style="margin-top: 100px; margin-bottom: 20px;">
+        <tr>
+            <td class="box">
+                <div style="perspective: 6cm;">
+                    <div class="scale">
+                        <div class="rotate qrcode">
+                        </div>
+                    </div>
+                </div>
+            </td>
         </tr>
         <tr>
             <td style="font-size: 55px; color: gray;" >
