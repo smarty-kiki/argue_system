@@ -31,6 +31,42 @@
          text-align: center;
      }
 
+     .rotate{
+         -webkit-animation: rotate 10s 0s ease-in-out infinite;
+         -moz-animation: rotate 10s 0s ease-in-out infinite;
+         -ms-animation: rotate 10s 0s ease-in-out infinite;
+         -o-animation: rotate 10s 0s ease-in-out infinite;
+         animation: rotate 10s 0s ease-in-out infinite;
+     }
+     @-webkit-keyframes rotate {
+         0% {
+             -webkit-transform: rotateY(0deg);
+             transform: rotateY(0deg)
+         }
+         10% {
+             -webkit-transform: rotateY(-20deg);
+             transform: rotateY(-20deg)
+         }
+         60% {
+             -webkit-transform: rotateY(0deg);
+             transform: rotateY(0deg)
+         }
+     }
+     @keyframes rotate {
+         0% {
+             -webkit-transform: rotateY(0deg);
+             transform: rotateY(0deg)
+         }
+         10% {
+             -webkit-transform: rotateY(-20deg);
+             transform: rotateY(-20deg)
+         }
+         60% {
+             -webkit-transform: rotateY(0deg);
+             transform: rotateY(0deg)
+         }
+     }
+
      .box{
          -webkit-animation: rock 2s 0s ease-in-out infinite;
          -moz-animation: rock 2s 0s ease-in-out infinite;
@@ -122,7 +158,7 @@
 </head>
 <body>
     <table style="margin-bottom: 20px;perspective: 6cm;">
-        <tr style="transform: rotateY(-20deg);">
+        <tr class="rotate">
             <td class="box qrcode"></td>
         </tr>
         <tr>
