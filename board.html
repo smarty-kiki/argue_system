@@ -235,7 +235,7 @@
         $('.right').text(decodeURI(getQueryVariable('right', '参数 right 会显示在这里')));
 
         var rand = Math.round(Math.random() * 1000);
-        var url = window.location.origin + '/vote.html?rand=' + rand;
+        var url = window.location.origin + '/vote.html?rand=' + rand + '&left=' + getQueryVariable('left', '投红方') + '&right=' + getQueryVariable('right', '投蓝方');
         console.log(url);
 
         $('.qrcode').qrcode({
