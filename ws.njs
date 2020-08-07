@@ -81,27 +81,38 @@
             var json = receive(m);
             if (json.guid) {
                 var len = getJsonLength(vote_infos[rand]);
+
                 guid = json.guid;
 
-                if (len < board_totals[rand]) {
-                    vote_infos[rand][guid] = json.select;
+                var reg = RegExp(/[a-zA-Z0-9]/);
+                if (reg.exec(guid)) {
 
-                    sendJsonToConn({
-                        res: 1,
-                        msg: ''
-                    }, conn);
-                } else if (len == board_totals[rand] && vote_infos[rand][guid]) {
-                    vote_infos[rand][guid] = json.select;
+                  sendJsonToConn({
+                    res: 0,
+                    msg: '木有邀请你哦'
+                  }, conn);
 
-                    sendJsonToConn({
-                        res: 1,
-                        msg: ''
-                    }, conn);
                 } else {
+                  if (len < board_totals[rand]) {
+                    vote_infos[rand][guid] = json.select;
+
                     sendJsonToConn({
-                        res: 0,
-                        msg: '超过了参与投票人数'
+                      res: 1,
+                      msg: ''
                     }, conn);
+                  } else if (len == board_totals[rand] && vote_infos[rand][guid]) {
+                    vote_infos[rand][guid] = json.select;
+
+                    sendJsonToConn({
+                      res: 1,
+                      msg: ''
+                    }, conn);
+                  } else {
+                    sendJsonToConn({
+                      res: 0,
+                      msg: '超过了参与投票人数'
+                    }, conn);
+                  }
                 }
             } else {
                 boards[rand] = conn;
