@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>辩论赛</title>
+    <style>
+     body {
+         background-image: url(images/36.png);
+         background-size: cover;
+     }
+
+     table {
+         font-family: verdana,arial,sans-serif;
+         font-size:11px;
+         color:#333333;
+         border-width: 0px;
+         border-color: #666666;
+         border-collapse: collapse;
+         width: 100%;
+     }
+     table th {
+         border-width: 1px;
+         padding: 8px;
+         border-style: solid;
+         border-color: #666666;
+         background-color: #dedede;
+         text-align: center;
+     }
+     table td {
+         border-width: 0px;
+         padding: 8px;
+         border-style: solid;
+         border-color: #666666;
+         background-color: #ffffff;
+         text-align: center;
+     }
+     
+    </style>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/qrcode.js"></script>
+    <script src="/js/jquery.qrcode.js"></script>
+</head>
+<body>
+    <table style="margin-top: 14.5px; margin-left: 389px; margin-bottom: 20px; background-color:rgba(0,0,0,0~1);">
+        <tr>
+            <td>
+                <div>
+                    <div style="margin: 10px;" class="qrcode">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 55px; color: gray;" >
+                <p> 一次扫码，随时改票 </p>
+            </td>
+        </tr>
+    </table>
+
+    <table style="margin-bottom: 20px;">
+        <tbody>
+            <tr>
+                <td colspan="3" class="question" style="font-size: 100px;"></td>
+            </tr>
+            <tr>
+                <td class="left" style="width: 50%; font-size: 75px; color: red;"></td>
+                <td class="" style="font-size: 75px;"></td>
+                <td class="right" style="width: 50%; font-size: 75px; color: blue;"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <tbody>
+            <tr style="height: 300px;">
+                <td class="left-score" style="background-color: red; font-size: 100px; color: white;"></td>
+                <td class="right-score" style="background-color: blue; font-size: 100px; color: white;"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="input">
+        <tr>
+            <td><input class="seconds"> 输入秒数，按 ← 红方计时，按 → 蓝方计时，按 ↑ 进入红蓝双方切换计时按左右方向切换，所有计时方式在计时过程中按 ↓ 结束且记录分，按 ↑ 暂停双方计时，按 ESC 取消计时</td>
+        </tr>
+    </table>
+    <table class="left-timer">
+        <tr>
+            <td id="ltimer" style="font-size: 200px; color: red;"></td>
+        </tr>
+    </table>
+    <table class="right-timer">
+        <tr>
+            <td id="rtimer" style="font-size: 200px; color: blue;"></td>
+        </tr>
+    </table>
+    <table class="pk-timer">
+        <tr>
+            <td id="pkltimer" style="font-size: 100px; color: red;"></td>
+            <td id="pkrtimer" style="font-size: 100px; color: blue;"></td>
+        </tr>
+    </table>
+    <table class="result">
+    </table>
+</body>
+<script>
+
+    $(function () {
+
+        var seconds30 = new Audio('seconds30.mp3');
+        var dong = new Audio('dong.wav');
+        var timeup = new Audio('timeup.mp3');
+
+        function dateFormat(fmt, date) {
+            let ret;
+            const opt = {
+                "Y+": date.getFullYear().toString(),        // 年
+                "m+": (date.getMonth() + 1).toString(),     // 月
+                "d+": date.getDate().toString(),            // 日
+                "H+": date.getHours().toString(),           // 时
+                "M+": date.getMinutes().toString(),         // 分
+                "S+": date.getSeconds().toString()          // 秒
+                // 有其他格式化字符需求可以继续添加，必须转化成字符串
+            };
+            for (let k in opt) {
+                ret = new RegExp("(" + k + ")").exec(fmt);
+                if (ret) {
+                    fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+                };
+            };
+            return fmt;
+        }
+
+        function getQueryVariable(variable, dft = 'default')
+        {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+            }
+            return dft;
+        }
+
+        function setScore(left, right)
+        {
+            var total = left + right;
+
+            $('.left-score').css('width', Math.round(left / total * 100) + '%');
+            $('.left-score').css('font-size', Math.round(left / total * 100 + 100) + 'px');
+            $('.right-score').css('width', Math.round(right / total * 100) + '%');
+            $('.right-score').css('font-size', Math.round(right / total * 100 + 100) + 'px');
+
+            $('.left-score').text(left);
+            $('.right-score').text(right);
+
+            // shake shake-hard
+        }
+
+        $('.question').text(decodeURI(getQueryVariable('question', '在团队的协作中，好心办坏事是否应该追责？')));
+        $('.left').text(decodeURI(getQueryVariable('left', '该追责')));
+        $('.right').text(decodeURI(getQueryVariable('right', '不该追责')));
+
+        var rand = Math.round(Math.random() * 1000);
+        var url = window.location.origin + '/vote.html?rand=' + rand + '&left=' + getQueryVariable('left', '该追责') + '&right=' + getQueryVariable('right', '不该追责');
+        console.log(url);
+
+        $('.qrcode').qrcode({
+            text: url,
+            width: 160, //宽度
+            height: 160, //高度
+            color: "#aaaaaa",
+            correctLevel: QRErrorCorrectLevel.M
+        });
+
+        var last_vote_infos = null;
+
+        function connectServer() {
+
+            var ws = new WebSocket('ws://center.yao-yang.cn:50000/' + rand);
+
+            ws.onclose = function () {
+                connectServer();
+            };
+
+            ws.onmessage = function (event) {
+                if (typeof event.data === 'string') {
+                    var vote_result = JSON.parse(event.data);
+                    setScore(vote_result.left, vote_result.right);
+                    last_vote_infos = vote_result.vote_infos;
+                    console.log(vote_result.vote_infos);
+                }
+            };
+
+            ws.onopen = function () {
+                var tmp = {
+                    total: getQueryVariable('total', 37),
+                };
+                if (last_vote_infos) {
+                    tmp.vote_infos = last_vote_infos;
+                }
+                ws.send(JSON.stringify(tmp));
+            };
+
+            return ws;
+        }
+
+        connectServer();
+
+        var timer = function (id, seconds) {
+
+            var dom = document.getElementById(id);
+            var res = {};
+            var t = null;
+
+            res.display = function () {
+                var m = Math.floor(seconds / 60);
+                var s = seconds % 60;
+                dom.innerHTML =
+                    (m > 0) ?
+                    m + '′' + s + '″':
+                    s + '″';
+            }
+
+            res.display();
+
+            res.reduce = function () {
+                seconds -= 1;
+                if (seconds < 0) {
+                    seconds = 0;
+                }
+                res.display();
+
+                if (seconds == 31) {
+                    seconds30.play();
+                } else if (seconds < 7 & seconds > 0 & seconds % 2 == 0) {
+                    dong.play();
+                } else if (seconds == 0) {
+                    timeup.play();
+                }
+            }
+
+            res.start = function () {
+                if (t === null) {
+                    t = setInterval(function () {
+                        res.reduce();
+                        if (res.is_finished()) {
+                            clearInterval(t);
+                        }
+                    }, 1000);
+                }
+            }
+
+            res.pause = function () {
+                clearInterval(t);
+                t = null;
+            }
+
+            res.is_finished = function () {
+                return seconds === 0;
+            }
+
+            return res;
+        }
+
+        var timer_status = 'input';
+        var start_score = {};
+        var timers = {};
+
+        function showkey() {
+
+            var key = event.keyCode;
+
+            if (timer_status === 'input') {
+                if (key == 37) {
+
+                    $('.input').hide();
+                    timer_status = 'left-timer';
+                    timers['left-timer'] = timer('ltimer', $('.seconds').val());
+                    timers['left-timer'].start();
+                    $('.left-timer').show();
+
+                } else if (key == 39) {
+
+                    $('.input').hide();
+                    timer_status = 'right-timer';
+                    timers['right-timer'] = timer('rtimer', $('.seconds').val());
+                    timers['right-timer'].start();
+                    $('.right-timer').show();
+
+                } else if (key == 38) {
+
+                    $('.input').hide();
+                    timer_status = 'pk-timer';
+                    timers['pk-left-timer'] = timer('pkltimer', $('.seconds').val());
+                    timers['pk-right-timer'] = timer('pkrtimer', $('.seconds').val());
+                    $('.pk-timer').show();
+                } else if (key == 40) {
+
+                    if (start_score.left && start_score.right) {
+
+                        $('.result').append('<tr>'
+                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 30px;">记录票数</td>'
+                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '</tr>');
+
+                    } else {
+
+                        start_score.left = $('.left-score').text();
+                        start_score.right = $('.right-score').text();
+
+                        $('.result').append('<tr>'
+                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 30px;">首次记录票数</td>'
+                            + '<td style="font-size: 30px; color: red;">' + start_score.left + '</td>'
+                            + '<td style="font-size: 30px; color: blue;">' + start_score.right + '</td>'
+                            + '</tr>');
+                    }
+                }
+            } else {
+
+                if (key == 27) { // esc
+                    if (timer_status == 'left-timer') {
+                        timers['left-timer'].pause();
+                        $('.left-timer').hide();
+                        $('.input').show();
+                        timer_status = 'input';
+                    }
+                    if (timer_status == 'right-timer') {
+                        timers['right-timer'].pause();
+                        $('.right-timer').hide();
+                        $('.input').show();
+                        timer_status = 'input';
+                    }
+                    if (timer_status == 'pk-timer') {
+                        timers['pk-left-timer'].pause();
+                        timers['pk-right-timer'].pause();
+                        $('.pk-timer').hide();
+                        $('.input').show();
+                        timer_status = 'input';
+                    }
+                } else if (key == 40) { // down
+
+                    if (timer_status == 'left-timer') {
+                        timers['left-timer'].pause();
+                        $('.left-timer').hide();
+                        $('.input').show();
+
+                        $('.result').append('<tr>'
+                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 30px; color: red;">红方发言完毕</td>'
+                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '</tr>');
+
+                        timer_status = 'input';
+                    }
+                    if (timer_status == 'right-timer') {
+                        timers['right-timer'].pause();
+                        $('.right-timer').hide();
+                        $('.input').show();
+
+                        $('.result').append('<tr>'
+                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 30px; color: blue;">蓝方发言完毕</td>'
+                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '</tr>');
+
+                        timer_status = 'input';
+                    }
+                    if (timer_status == 'pk-timer') {
+                        timers['pk-left-timer'].pause();
+                        timers['pk-right-timer'].pause();
+                        $('.pk-timer').hide();
+                        $('.input').show();
+
+                        $('.result').append('<tr>'
+                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 30px;">双方发言完毕</td>'
+                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '</tr>');
+
+                        timer_status = 'input';
+                    }
+                } else if (key == 38) { // down
+
+                    if (timer_status == 'left-timer') {
+                        timers['left-timer'].pause();
+                    }
+                    if (timer_status == 'right-timer') {
+                        timers['right-timer'].pause();
+                    }
+                    if (timer_status == 'pk-timer') {
+                        timers['pk-left-timer'].pause();
+                        $('#pkltimer').css('font-size', '100px');
+                        timers['pk-right-timer'].pause();
+                        $('#pkrtimer').css('font-size', '100px');
+                    }
+
+                } else if (timer_status == 'pk-timer') {
+
+                    if (key == 37) {
+
+                        timers['pk-right-timer'].pause();
+                        $('#pkrtimer').css('font-size', '100px');
+                        timers['pk-left-timer'].start();
+                        $('#pkltimer').css('font-size', '200px');
+
+                    } else if (key == 39) {
+
+                        timers['pk-left-timer'].pause();
+                        $('#pkltimer').css('font-size', '100px');
+                        timers['pk-right-timer'].start();
+                        $('#pkrtimer').css('font-size', '200px');
+
+                    }
+                } else if (timer_status == 'left-timer') {
+                    if (key == 37) {
+                        timers['left-timer'].start();
+                    }
+                } else if (timer_status == 'right-timer') {
+                    if (key == 39) {
+                        timers['right-timer'].start();
+                    }
+                }
+            }
+        }
+
+        document.onkeydown = showkey;
+    });
+
+</script>
+</html>
