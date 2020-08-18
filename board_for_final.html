@@ -87,7 +87,7 @@
             <td><input class="seconds"> 输入秒数，按 ← 红方计时，按 → 蓝方计时，按 ↑ 进入红蓝双方切换计时按左右方向切换，所有计时方式在计时过程中按 ↓ 结束且记录分，按 ↑ 暂停双方计时，按 ESC 取消计时</td>
         </tr>
     </table>
-    <table class="result">
+    <table class="result" style="margin: 0 auto; width: 95%; margin-bottom: 20px; margin-top: 100px;">
         <tr class="left-timer">
             <td id="ltimer" style="font-size: 200px; color: red;"></td>
         </tr>
@@ -297,10 +297,10 @@
                     if (start_score.left && start_score.right) {
 
                         $('.result').append('<tr>'
-                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
-                            + '<td style="font-size: 30px;">记录票数</td>'
-                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
-                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '<td style="width: 20%; font-size: 25px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 25px;">记录票数</td>'
+                            + '<td style="font-size: 25px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 25px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
                             + '</tr>');
 
                     } else {
@@ -309,10 +309,10 @@
                         start_score.right = $('.right-score').text();
 
                         $('.result').append('<tr>'
-                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
-                            + '<td style="font-size: 30px;">首次记录票数</td>'
-                            + '<td style="font-size: 30px; color: red;">' + start_score.left + '</td>'
-                            + '<td style="font-size: 30px; color: blue;">' + start_score.right + '</td>'
+                            + '<td style="width: 20%; font-size: 25px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 25px;">首次记录票数</td>'
+                            + '<td style="font-size: 25px; color: red;">' + start_score.left + '</td>'
+                            + '<td style="font-size: 25px; color: blue;">' + start_score.right + '</td>'
                             + '</tr>');
                     }
                 }
@@ -346,10 +346,10 @@
                         $('.input').show();
 
                         $('.result').append('<tr>'
-                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
-                            + '<td style="font-size: 30px; color: red;">红方发言完毕</td>'
-                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
-                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '<td style="width: 20%; font-size: 25px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 25px; color: red;">红方发言完毕</td>'
+                            + '<td style="font-size: 25px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 25px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
                             + '</tr>');
 
                         timer_status = 'input';
@@ -360,10 +360,10 @@
                         $('.input').show();
 
                         $('.result').append('<tr>'
-                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
-                            + '<td style="font-size: 30px; color: blue;">蓝方发言完毕</td>'
-                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
-                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '<td style="width: 20%; font-size: 25px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 25px; color: blue;">蓝方发言完毕</td>'
+                            + '<td style="font-size: 25px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 25px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
                             + '</tr>');
 
                         timer_status = 'input';
@@ -375,10 +375,10 @@
                         $('.input').show();
 
                         $('.result').append('<tr>'
-                            + '<td style="width: 20%; font-size: 30px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
-                            + '<td style="font-size: 30px;">双方发言完毕</td>'
-                            + '<td style="font-size: 30px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
-                            + '<td style="font-size: 30px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
+                            + '<td style="width: 20%; font-size: 25px;">' + dateFormat('HH:MM:SS', new Date()) + '</td>'
+                            + '<td style="font-size: 25px;">双方发言完毕</td>'
+                            + '<td style="font-size: 25px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
+                            + '<td style="font-size: 25px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
                             + '</tr>');
 
                         timer_status = 'input';
