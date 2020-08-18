@@ -162,7 +162,7 @@
         // $('.right').text(decodeURI(getQueryVariable('right', '不该追责')));
 
         var rand = Math.round(Math.random() * 1000);
-        var url = window.location.origin + '/vote.html?rand=' + rand + '&left=' + getQueryVariable('left', '该追责') + '&right=' + getQueryVariable('right', '不该追责');
+        var url = window.location.origin + '/vote.html?rand=' + rand + '&left=' + getQueryVariable('left', encodeURI('该追责')) + '&right=' + getQueryVariable('right', encodeURI('不该追责'));
         console.log(url);
 
         var qrcode_frame_width = $('#qrcode_frame').width() - 20;
