@@ -86,14 +86,14 @@
         </tbody>
     </table>
     <table class="result" style="margin: 0 auto; width: 95%; margin-bottom: 20px; margin-top: 120px;">
-        <tr class="input" colspan="4">
-            <td><input class="seconds"> 输入秒数，按 ←→↑↓</td>
+        <tr class="input">
+            <td colspan="4"><input class="seconds"> 输入秒数，按 ←→↑↓</td>
         </tr>
-        <tr class="left-timer" colspan="4">
-            <td id="ltimer" style="font-size: 200px; color: red;"></td>
+        <tr class="left-timer">
+            <td colspan="4" id="ltimer" style="font-size: 200px; color: red;"></td>
         </tr>
-        <tr class="right-timer" colspan="4">
-            <td id="rtimer" style="font-size: 200px; color: blue;"></td>
+        <tr class="right-timer">
+            <td colspan="4" id="rtimer" style="font-size: 200px; color: blue;"></td>
         </tr>
         <tr class="pk-timer">
             <td colspan="2" id="pkltimer" style="font-size: 100px; color: red;"></td>
@@ -269,8 +269,8 @@
                 if (key == 37) {
 
                     $('body').removeClass('body_backgroud_finish');
-                    $('left-diff').text('');
-                    $('right-diff').text('');
+                    $('.left-diff').text('');
+                    $('.right-diff').text('');
                     $('body').addClass('body_backgroud_init');
                     $('.input').hide();
                     timer_status = 'left-timer';
@@ -281,8 +281,8 @@
                 } else if (key == 39) {
 
                     $('body').removeClass('body_backgroud_finish');
-                    $('left-diff').text('');
-                    $('right-diff').text('');
+                    $('.left-diff').text('');
+                    $('.right-diff').text('');
                     $('body').addClass('body_backgroud_init');
                     $('.input').hide();
                     timer_status = 'right-timer';
@@ -293,8 +293,8 @@
                 } else if (key == 38) {
 
                     $('body').removeClass('body_backgroud_finish');
-                    $('left-diff').text('');
-                    $('right-diff').text('');
+                    $('.left-diff').text('');
+                    $('.right-diff').text('');
                     $('body').addClass('body_backgroud_init');
                     $('.input').hide();
                     timer_status = 'pk-timer';
@@ -316,8 +316,8 @@
                             + '</tr>');
                         $('body').removeClass('body_backgroud_init');
                         $('body').addClass('body_backgroud_finish');
-                        $('left-diff').text((left_diff > 0 ? '+' : '') + left_diff);
-                        $('right-diff').text((right_diff > 0 ? '+' : '') + right_diff);
+                        $('.left-diff').text((left_diff > 0 ? '+' : '') + left_diff);
+                        $('.right-diff').text((right_diff > 0 ? '+' : '') + right_diff);
 
                     } else {
 
