@@ -166,10 +166,12 @@
         var url = window.location.origin + '/vote.html?rand=' + rand + '&left=' + getQueryVariable('left', '该追责') + '&right=' + getQueryVariable('right', '不该追责');
         console.log(url);
 
+        var qrcode_frame_width = $('#qrcode_frame').width() - 20;
+
         $('.qrcode').qrcode({
             text: url,
-            width: 160, //宽度
-            height: 160, //高度
+            width: qrcode_frame_width, //宽度
+            height: qrcode_frame_width, //高度
             color: "#aaaaaa",
             correctLevel: QRErrorCorrectLevel.M
         });
