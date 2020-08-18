@@ -5,10 +5,17 @@
     <title>辩论赛</title>
     <style>
      body {
-         background-image: url(images/36.png);
          background-size: cover;
          background-repeat: no-repeat;
          text-align: center;
+     }
+
+     .body_backgroud_init {
+         background-image: url(images/36.png);
+     }
+
+     .body_backgroud_finish {
+         background-image: url(images/36_2.png);
      }
 
      .width100 {
@@ -45,7 +52,7 @@
     <script src="/js/qrcode.js"></script>
     <script src="/js/jquery.qrcode.js"></script>
 </head>
-<body>
+<body class="body_backgroud_init">
     <table style="margin: 0 auto; margin-bottom: 385px; margin-top: 30px; width: 20%;">
         <tr>
             <td style="border-radius: 8px;">
@@ -84,17 +91,17 @@
     </table>
     <table class="result" style="margin: 0 auto; width: 95%; margin-bottom: 20px; margin-top: 120px;">
         <tr class="input">
-            <td><input class="seconds"> 输入秒数，按 ←→↑↓</td>
+            <td><input colspan="4" class="seconds"> 输入秒数，按 ←→↑↓</td>
         </tr>
         <tr class="left-timer">
-            <td id="ltimer" style="font-size: 200px; color: red;"></td>
+            <td colspan="4" id="ltimer" style="font-size: 200px; color: red;"></td>
         </tr>
         <tr class="right-timer">
-            <td id="rtimer" style="font-size: 200px; color: blue;"></td>
+            <td colspan="4" id="rtimer" style="font-size: 200px; color: blue;"></td>
         </tr>
         <tr class="pk-timer">
-            <td id="pkltimer" style="font-size: 100px; color: red;"></td>
-            <td id="pkrtimer" style="font-size: 100px; color: blue;"></td>
+            <td colspan="2" id="pkltimer" style="font-size: 100px; color: red;"></td>
+            <td colspan="2" id="pkrtimer" style="font-size: 100px; color: blue;"></td>
         </tr>
     </table>
 </body>
