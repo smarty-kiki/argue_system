@@ -46,7 +46,7 @@
     <script src="/js/jquery.qrcode.js"></script>
 </head>
 <body>
-    <table style="margin: 0 auto; margin-bottom: 255px; margin-top: 30px; width: 20%;">
+    <table style="margin: 0 auto; margin-bottom: 380px; margin-top: 30px; width: 20%;">
         <tr>
             <td style="border-radius: 8px;">
                 <div id="qrcode_frame">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </td>
-            <td style="margin: 0px; padding: 10px; font-size: 14px; color: white; width: 24px; word-break: break-all; background-color:rgba(0,0,0,0);" >
+            <td style="margin: 0px; padding: 10px; font-size: 18px; color: white; width: 30px; word-break: break-all; background-color:rgba(0,0,0,0);" >
                 <p style="margin: 0px;">一次扫码随时改票</p>
             </td>
         </tr>
@@ -72,11 +72,13 @@
             </tr>
         </tbody>
     </table-->
-    <table style="margin: 0 auto; width: 65%;">
+    <table style="margin: 0 auto; width: 100%;">
         <tbody>
-            <tr style="margin: 0 auto; height: 300px;">
-                <td class="left-score" style="background-color: red; font-size: 100px; color: white;"></td>
-                <td class="right-score" style="background-color: blue; font-size: 100px; color: white;"></td>
+            <tr style="margin: 0 auto; height: 60px;">
+                <td class="left-score" style="width: 17%; background-color: rgba(0,0,0,0);color: white;"></td>
+                <td class="left-score-color" style="width: 33%; border-radius: 30px 0px 0px 30px; background-color: red;color: white;"></td>
+                <td class="right-score-color" style="width: 33%; border-radius: 0px 30px 30px 0px; background-color: blue;color: white;"></td>
+                <td class="right-score" style="width: 17%; background-color: rgba(0,0,0,0);color: white;"></td>
             </tr>
         </tbody>
     </table>
@@ -147,10 +149,8 @@
         {
             var total = left + right;
 
-            $('.left-score').css('width', Math.round(left / total * 100) + '%');
-            $('.left-score').css('font-size', Math.round(left / total * 100 + 100) + 'px');
-            $('.right-score').css('width', Math.round(right / total * 100) + '%');
-            $('.right-score').css('font-size', Math.round(right / total * 100 + 100) + 'px');
+            $('.left-score-color').css('width', Math.round(left / total * 100) + '%');
+            $('.right-score-color').css('width', Math.round(right / total * 100) + '%');
 
             $('.left-score').text(left);
             $('.right-score').text(right);
