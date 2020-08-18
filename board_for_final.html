@@ -48,9 +48,9 @@
 <body>
     <table style="margin: 0 auto; margin-bottom: 20px; margin-top: 14.5px;">
         <tr>
-            <td>
+            <td style="border-radius: 5px;">
                 <div>
-                    <div style="margin: 10px; border-radius: 5px;" class="qrcode">
+                    <div style="margin: 10px;" class="qrcode">
                     </div>
                 </div>
             </td>
@@ -60,7 +60,7 @@
         </tr>
     </table>
 
-    <table style="margin-bottom: 20px;">
+    <!--table style="margin-bottom: 20px;">
         <tbody>
             <tr>
                 <td colspan="3" class="question" style="font-size: 100px;"></td>
@@ -71,7 +71,7 @@
                 <td class="right" style="width: 50%; font-size: 75px; color: blue;"></td>
             </tr>
         </tbody>
-    </table>
+    </table-->
     <table>
         <tbody>
             <tr style="height: 300px;">
@@ -158,9 +158,9 @@
             // shake shake-hard
         }
 
-        $('.question').text(decodeURI(getQueryVariable('question', '在团队的协作中，好心办坏事是否应该追责？')));
-        $('.left').text(decodeURI(getQueryVariable('left', '该追责')));
-        $('.right').text(decodeURI(getQueryVariable('right', '不该追责')));
+        // $('.question').text(decodeURI(getQueryVariable('question', '在团队的协作中，好心办坏事是否应该追责？')));
+        // $('.left').text(decodeURI(getQueryVariable('left', '该追责')));
+        // $('.right').text(decodeURI(getQueryVariable('right', '不该追责')));
 
         var rand = Math.round(Math.random() * 1000);
         var url = window.location.origin + '/vote.html?rand=' + rand + '&left=' + getQueryVariable('left', '该追责') + '&right=' + getQueryVariable('right', '不该追责');
