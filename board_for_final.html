@@ -276,6 +276,8 @@
             if (timer_status === 'input') {
                 if (key == 37) {
 
+                    $('body').removeClass('body_backgroud_finish');
+                    $('body').addClass('body_backgroud_init');
                     $('.input').hide();
                     timer_status = 'left-timer';
                     timers['left-timer'] = timer('ltimer', $('.seconds').val());
@@ -284,6 +286,8 @@
 
                 } else if (key == 39) {
 
+                    $('body').removeClass('body_backgroud_finish');
+                    $('body').addClass('body_backgroud_init');
                     $('.input').hide();
                     timer_status = 'right-timer';
                     timers['right-timer'] = timer('rtimer', $('.seconds').val());
@@ -292,6 +296,8 @@
 
                 } else if (key == 38) {
 
+                    $('body').removeClass('body_backgroud_finish');
+                    $('body').addClass('body_backgroud_init');
                     $('.input').hide();
                     timer_status = 'pk-timer';
                     timers['pk-left-timer'] = timer('pkltimer', $('.seconds').val());
@@ -307,6 +313,8 @@
                             + '<td style="font-size: 25px; color: red;">' + $('.left-score').text() + '(' + ($('.left-score').text() - start_score.left) + ')' + '</td>'
                             + '<td style="font-size: 25px; color: blue;">' + $('.right-score').text() + '(' + ($('.right-score').text() - start_score.right) + ')' + '</td>'
                             + '</tr>');
+                        $('body').removeClass('body_backgroud_init');
+                        $('body').addClass('body_backgroud_finish');
 
                     } else {
 
